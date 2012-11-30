@@ -19,14 +19,14 @@ Se vuoi forzare l'aggiornamento di ciascun submodulo, anche se non è tracciato 
         
 ## File hosts ##
 
-#### Linux / MacOS X (Automatico) 
+#### Linux / MacOS X (Automatico) #### 
 Installare vagrant hostmaster con il comando
 
 	vagrant gem install vagrant-hostmaster
 
 Sostituire il file *Vagrantfile* con *Vagrantfile.LinuxHost*
 
-#### Linux / MacOS X (Manuale) 
+#### Linux / MacOS X (Manuale) ####
 Modificare il file /etc/hosts ad esempio con 
 
 	sudo nano /etc/hosts 
@@ -35,12 +35,12 @@ e inserire il seguente virtualhost:
 
 	127.0.0.1	pma.dev
 
-#### Windows (solo manuale)
+#### Windows (solo manuale) ####
 Aggiungere alla file: *C:\Windows\System32\Driver\etc\hosts*
 
 	127.0.0.1	pma.dev
 
-## Avviare la macchina virtuale
+## Avviare la macchina virtuale ##
 Controlla di avere [virtualbox](http://download.virtualbox.org/virtualbox/4.2.4/ "Virtualbox 4.2.4") e lanciare vagrant con il comando:
 
 	vagrant up
@@ -56,7 +56,7 @@ Per avviare la macchina virtuale senza il provisioning di puppet usare il comand
 
 	vagrant up --no-provision
 
-## Supporto NFS (Linux / MacOS X)
+## Supporto NFS (Linux / MacOS X) ##
 La condivisione delle cartelle nativa di Dropox è decisamente lenta rispetto al Network File System (NFS)
 
 Una volta che nfs-utils è stato installato nella macchina guest è possibile abilitare l'NFS nel vagrantfile:
@@ -71,5 +71,5 @@ Decommentando
 	
 Per semplicit&agrave; si pu&ograve; sostituire *Vagrantfile* con *VagrantFile.LinuxHostNFS*
 
-## Accesso a phpMyAdmin
+## Accesso a phpMyAdmin ##
 * [http://pma.dev/](http://pma.dev/ "pma.dev")
