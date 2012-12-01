@@ -11,6 +11,12 @@ user { 'vagrant':
 	require	=> Package['nginx'],
 }
 
+user { 'nginx':
+	ensure	=> present,
+	groups	=> ['vagrant'],
+	require	=> Package['nginx'],
+}
+
 file { "/home/vagrant/tmp":
     ensure	=> "directory",
     mode	=> 777,
