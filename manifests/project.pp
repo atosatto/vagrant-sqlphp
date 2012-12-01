@@ -1,3 +1,5 @@
+# Author: Andrea Sosso <andrea@sosso.me>
+
 Exec { 
 	path => ['/usr/local/bin/:/bin/:/usr/bin/'],
 }
