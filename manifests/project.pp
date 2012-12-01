@@ -9,12 +9,14 @@ user { 'vagrant':
 	ensure	=> present,
 	groups	=> ['nginx'],
 	require	=> Package['nginx'],
+	notify  => [Service["nginx"], Service["php-fpm"]], 
 }
 
 user { 'nginx':
 	ensure	=> present,
 	groups	=> ['vagrant'],
 	require	=> Package['nginx'],
+	notify  => [Service["nginx"], Service["php-fpm"]], 
 }
 
 file { "/home/vagrant/tmp":
