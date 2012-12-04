@@ -107,7 +107,7 @@ package {'nfs-utils':
 }
 
 ### Pacchetti utili
-package {['nano', 'yum-utils', 'mlocate', 'git', 'curl']:
+package {['nano', 'vim', 'yum-utils', 'mlocate', 'git', 'curl']:
 	ensure => latest, 
 }
 
