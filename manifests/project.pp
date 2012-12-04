@@ -39,9 +39,22 @@ class { 'yum':
 	 extrarepo => ['nginx', 'remi', 'remi-test', 'epel'],	 
 }
 
-### Nginx
-class { "nginx": 
+package { "nginx":
 	require	=> Class['yum::repo::nginx'],
+}
+
+service { "nginx":
+	enable => true,
+	ensure => "running",
+	require	=> Package['nginx'],
+}
+
+file { '/etc/nginx/nginx.conf':
+	ensure	=> file,
+	mode	=> 600,
+	source	=> 'puppet:///modules/tekarea/nginx.conf',
+	require	=> Package['nginx'],
+	notify  => Service["nginx"], 
 }
 
 ### Mysql
@@ -107,7 +120,7 @@ package {'nfs-utils':
 }
 
 ### Pacchetti utili
-package {['nano', 'yum-utils', 'mlocate', 'git', 'curl', 'subversion-svn']:
+package {['nano', 'yum-utils', 'mlocate', 'git', 'curl', 'subversion']:
 	ensure => latest, 
 }
 
