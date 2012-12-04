@@ -74,7 +74,7 @@ package {'php-fpm':
 	require	=> Class['yum::repo::remi'],
 }
 
-package { ["php-common", "php", "php-pecl-apc", "php-cli", "php-pear", "php-mysqlnd", "php-pdo", "php-gd", "php-mbstring", "php-xml", "php-imap", "php-mcrypt", "mcrypt", "php-intl", "php-devel"]: 
+package { ["php-common", "php", "php-pecl-apc", "php-cli", "php-pear", "php-mysqlnd", "php-pdo", "php-gd", "php-mbstring", "php-xml", "php-imap", "php-mcrypt", "mcrypt", "php-intl", "php-devel", "php-soap"]: 
 	ensure => latest,
 	require	=> [Package['php-fpm'], Class['yum::repo::epel']],
 }
