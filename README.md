@@ -41,6 +41,10 @@ Aggiungere alla file: *C:\Windows\System32\Driver\etc\hosts*
 	127.0.0.1	pma.dev
 
 ## Avviare la macchina virtuale ##
+Copiare la configurazione di default di vagrant con il comando:
+
+	cp Vagrantfile.default Vagrantfile
+
 Controlla di avere [virtualbox](http://download.virtualbox.org/virtualbox/4.2.4/ "Virtualbox 4.2.4") e lanciare vagrant con il comando:
 
 	vagrant up

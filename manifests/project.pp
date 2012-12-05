@@ -120,7 +120,7 @@ package {'nfs-utils':
 }
 
 ### Pacchetti utili
-package {['nano', 'yum-utils', 'mlocate', 'git', 'curl', 'subversion']:
+package {['nano', 'vim-enhanced', 'yum-utils', 'mlocate', 'git', 'curl', 'subversion']:
 	ensure => latest, 
 }
 
