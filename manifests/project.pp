@@ -39,9 +39,22 @@ class { 'yum':
 	 extrarepo => ['nginx', 'remi', 'remi-test', 'epel'],	 
 }
 
-### Nginx
-class { "nginx": 
+package { "nginx":
 	require	=> Class['yum::repo::nginx'],
+}
+
+service { "nginx":
+	enable => true,
+	ensure => "running",
+	require	=> Package['nginx'],
+}
+
+file { '/etc/nginx/nginx.conf':
+	ensure	=> file,
+	mode	=> 600,
+	source	=> 'puppet:///modules/tekarea/nginx.conf',
+	require	=> Package['nginx'],
+	notify  => Service["nginx"], 
 }
 
 ### Mysql
@@ -74,7 +87,7 @@ package {'php-fpm':
 	require	=> Class['yum::repo::remi'],
 }
 
-package { ["php-common", "php", "php-pecl-apc", "php-cli", "php-pear", "php-mysqlnd", "php-pdo", "php-gd", "php-mbstring", "php-xml", "php-imap", "php-mcrypt", "mcrypt", "php-intl", "php-devel"]: 
+package { ["php-common", "php", "php-pecl-apc", "php-cli", "php-pear", "php-mysqlnd", "php-pdo", "php-gd", "php-mbstring", "php-xml", "php-imap", "php-mcrypt", "mcrypt", "php-intl", "php-devel", "php-soap"]: 
 	ensure => latest,
 	require	=> [Package['php-fpm'], Class['yum::repo::epel']],
 }
@@ -107,7 +120,7 @@ package {'nfs-utils':
 }
 
 ### Pacchetti utili
-package {['nano', 'vim', 'yum-utils', 'mlocate', 'git', 'curl']:
+package {['nano', 'vim-enhanced', 'yum-utils', 'mlocate', 'git', 'curl', 'subversion']:
 	ensure => latest, 
 }
 
