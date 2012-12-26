@@ -137,6 +137,14 @@ exec { "install_composer":
     creates => "/bin/composer.phar",
 }
 
+### Installazione di phpUnit nella cartella /usr/bin
+exec { "install_phpUnit":
+    command => "wget --output-document=/usr/bin/phpunit.phar http://pear.phpunit.de/get/phpunit.phar && chmod +x /usr/bin/phpunit.phar",
+    require => [Package['php'], Package['php-pear']],
+    creates => "/usr/bin/phpunit.phar",
+}
+
+
 ### Messaggio di benvenuto
 host {'self':
 	ensure => present,
