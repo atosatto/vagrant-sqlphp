@@ -43,6 +43,10 @@ package { "nginx":
 	require	=> Class['yum::repo::nginx'],
 }
 
+package {"gcc-c++":
+	ensure	=> "installed",
+}
+
 service { "nginx":
 	enable => true,
 	ensure => "running",
@@ -151,8 +155,105 @@ file {'motd':
 	content => "\n*** Tekarea development OS ***\n\nNome macchina: ${hostname}\nSistema operativo: ${operatingsystem}\nDominio: ${domain}\n\n\n",
 }
 
-### Aggiorno l'indice di ricerca
-exec { "refresh_locate":
-    command => "updatedb",
-    require	=> Package['mlocate'],
+exec { "nodejs":                                                                                                                     
+	command => "git clone https://github.com/joyent/node.git /home/node/",
+    creates => "/home/node/",                                                              
 }
+
+exec { "configure_node": 
+	command => "/home/node/configure",
+	cwd => "/home/node/",
+	creates => "/home/node/config.mk",
+	require => [Exec['nodejs'], Package['gcc-c++']],
+}
+
+exec { "make_node": 
+	command => "make",
+	cwd => "/home/node/",
+	creates => "/home/node/out/Makefile",
+	require => Exec['configure_node'],
+}
+
+exec { "install_node": 
+	command => "make install",
+	cwd => "/home/node/",
+	creates => "/usr/local/bin/node",
+	require => Exec['make_node'],
+}
+
+
+exec { "get_npmjs": 
+	command => "wget --no-check-certificate https://npmjs.org/install.sh",
+	cwd => "/home/node",
+	creates => "/home/node/install.sh",
+	require => [Exec['install_node'], File['/usr/bin/node'], File['/usr/bin/npm']],
+}
+
+file {"/home/node/install.sh": 
+	ensure	=> present,
+	mode	=> 755,
+	require => Exec['get_npmjs'],
+}
+
+exec { "install_npmjs":
+	command => "/home/node/install.sh",
+	creates => "/usr/lib/node_modules/npm/bin/npm-cli.js",
+	require => File["/home/node/install.sh"],
+}
+
+exec { "install_less":
+	command => "npm install less -g",
+	creates => "/usr/local/bin/lessc",
+	require => Exec["install_npmjs"],
+}
+
+exec { "install_shift": 
+	command => "npm install shift",
+	cwd	=> "/usr/local/lib",
+	creates => "/usr/local/lib/node_modules/shift/",
+	require => Exec["install_npmjs"],
+}
+
+
+
+
+file {'/usr/bin/node':
+	ensure => 'link',
+	target => '/usr/local/bin/node',
+	require => Exec['install_node'],
+}
+
+file {'/usr/bin/npm':
+	ensure => 'link',
+	target => '/usr/local/bin/npm',
+	require => Exec['install_node'],
+}
+
+### Selinux
+	case $operatingsystem {
+		centos: {
+      package {['bind-utils']: 
+                ensure => installed,
+      }
+			file { "/etc/selinux/config":
+				ensure	=> file,
+				source	=> 'puppet:///modules/tekarea/selinux.cfg',
+				owner => root,
+				group => root,
+				notify => Exec["disable_selinux"], 
+			}
+      		
+      exec { "disable_selinux":
+    			command		=> "setenforce 0",
+    			refreshonly	=> true,
+    			path		=> "/usr/sbin", 
+			}
+		}
+	}
+
+
+### Aggiorno l'indice di ricerca
+#exec { "refresh_locate":
+#    command => "updatedb",
+#    require	=> Package['mlocate'],
+#}
