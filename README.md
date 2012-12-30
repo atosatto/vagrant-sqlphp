@@ -41,6 +41,10 @@ Aggiungere alla file: *C:\Windows\System32\Driver\etc\hosts*
 	127.0.0.1	pma.dev
 
 ## Avviare la macchina virtuale ##
+Copiare la configurazione di default di vagrant con il comando:
+
+	cp Vagrantfile.default Vagrantfile
+
 Controlla di avere [virtualbox](http://download.virtualbox.org/virtualbox/4.2.4/ "Virtualbox 4.2.4") e lanciare vagrant con il comando:
 
 	vagrant up
@@ -57,7 +61,7 @@ Per avviare la macchina virtuale senza il provisioning di puppet usare il comand
 	vagrant up --no-provision
 
 ## Supporto NFS (Linux / MacOS X) ##
-La condivisione delle cartelle nativa di Dropox è decisamente lenta rispetto al Network File System (NFS)
+La condivisione delle cartelle nativa di VirtualBox è decisamente lenta rispetto al Network File System (NFS)
 
 Una volta che nfs-utils è stato installato nella macchina guest è possibile abilitare l'NFS nel vagrantfile:
 
@@ -70,6 +74,12 @@ Decommentando
 	config.vm.share_folder("v-data", "/home/vagrant/data", "data", :nfs => true, :extra => 'dmode=777,fmode=777')
 	
 Per semplicit&agrave; si pu&ograve; sostituire *Vagrantfile* con *VagrantFile.LinuxHostNFS*
+
+Se non &egrave; ancora stato installato nfs-utils al primo boot con **vagrant up** viene visualizzato un messaggio d'errore sul mounting NFS. A questo punto &egrave necessario far eseguire comunque puppet e riaviare la macchina:
+
+	vagrant provision
+	vagrant reload
+
 
 ## Accesso a phpMyAdmin ##
 * [http://pma.dev/](http://pma.dev/ "pma.dev")

@@ -124,7 +124,7 @@ package {'nfs-utils':
 }
 
 ### Pacchetti utili
-package {['nano', 'yum-utils', 'mlocate', 'git', 'curl', 'subversion']:
+package {['nano', 'vim-enhanced', 'yum-utils', 'mlocate', 'git', 'curl', 'subversion']:
 	ensure => latest, 
 }
 
@@ -140,6 +140,14 @@ exec { "install_composer":
     require => [Package['curl'], Package['php']],
     creates => "/bin/composer.phar",
 }
+
+### Installazione di phpUnit nella cartella /usr/bin
+exec { "install_phpUnit":
+    command => "wget --output-document=/usr/bin/phpunit.phar http://pear.phpunit.de/get/phpunit.phar && chmod +x /usr/bin/phpunit.phar",
+    require => [Package['php'], Package['php-pear']],
+    creates => "/usr/bin/phpunit.phar",
+}
+
 
 ### Messaggio di benvenuto
 host {'self':
@@ -250,10 +258,3 @@ file {'/usr/bin/npm':
 			}
 		}
 	}
-
-
-### Aggiorno l'indice di ricerca
-#exec { "refresh_locate":
-#    command => "updatedb",
-#    require	=> Package['mlocate'],
-#}
