@@ -33,12 +33,12 @@ Modificare il file /etc/hosts ad esempio con
 
 e inserire il seguente virtualhost:
 
-	127.0.0.1	pma.dev
+	33.33.33.10	pma.dev
 
 #### Windows (solo manuale) ####
 Aggiungere alla file: *C:\Windows\System32\Driver\etc\hosts*
 
-	127.0.0.1	pma.dev
+	33.33.33.10	pma.dev
 
 ## Avviare la macchina virtuale ##
 Controlla di avere [virtualbox](http://download.virtualbox.org/virtualbox/4.2.4/ "Virtualbox 4.2.4") e lanciare vagrant con il comando:
