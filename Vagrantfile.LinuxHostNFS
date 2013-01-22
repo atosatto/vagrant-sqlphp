@@ -8,7 +8,7 @@
 # Author: Andrea Sosso <andrea@sosso.me>
 
 Vagrant::Config.run do |config|
-    config.vm.box = 'centos-63-64-puppet-vbxox4.2.6'
+    config.vm.box = 'centos-63-64-puppet-vbox4.2.6'
     config.vm.box_url = 'http://packages.vstone.eu/vagrant-boxes/centos/6.3/centos-6.3-64bit-puppet-vbox.4.2.6-2.box'
     
     ### Configurazione del numero di core e della RAM per la VM
