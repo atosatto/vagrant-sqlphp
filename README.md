@@ -4,7 +4,7 @@
 
 Puoi scaricare tutti i file di vagrant con il comando:
 
-	git clone --recursive git@bitbucket.org:asosso/vagrant-web.git
+	git clone --recursive https://asosso@bitbucket.org/asosso/vagrant-web.git
 
 #### Aggiornamento submoduli ####
 Per aggiornare i submoduli collegati:
