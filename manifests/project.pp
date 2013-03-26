@@ -124,7 +124,7 @@ package {'nfs-utils':
 }
 
 ### Pacchetti utili
-package {['nano', 'vim-enhanced', 'yum-utils', 'mlocate', 'git', 'curl', 'subversion']:
+package {['nano', 'vim-enhanced', 'yum-utils', 'mlocate', 'git', 'curl', 'subversion', 'wget']:
 	ensure => latest, 
 }
 
@@ -162,6 +162,24 @@ file {'motd':
 	mode => 0644,
 	content => "\n*** Tekarea development OS ***\n\nNome macchina: ${hostname}\nSistema operativo: ${operatingsystem}\nDominio: ${domain}\n\n\n",
 }
+
+### wkhtmltopdf
+package { "fontconfig":
+	ensure	=> latest,
+	require	=> Class['yum'],
+}
+
+exec { 
+	"download_wkhtmltopdf":
+		command => "wget --output-document=/tmp/wkhtmltopdf-0.9.9-static-amd64.tar.bz2 http://wkhtmltopdf.googlecode.com/files/wkhtmltopdf-0.9.9-static-amd64.tar.bz2",
+		creates => "/tmp/wkhtmltopdf-0.9.9-static-amd64.tar.bz2",
+    	require => Package['wget'];
+    "install_wkhtmltopdf":
+    	command => "tar xvjf /tmp/wkhtmltopdf-0.9.9-static-amd64.tar.bz2 && sudo mv /tmp/wkhtmltopdf-amd64 /usr/local/bin/wkhtmltopdf && chmod 777 /usr/local/bin/wkhtmltopdf",
+		creates => "/usr/local/bin/wkhtmltopdf",
+    	require => [Exec['download_wkhtmltopdf'], Package["fontconfig"]];
+}
+	
 
 ### Selinux
 	case $operatingsystem {
