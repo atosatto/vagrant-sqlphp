@@ -1,50 +1,53 @@
-# Author: Andrea Sosso <andrea@sosso.me>
+# Authors: Andrea Sosso <andrea@sosso.me>
+#          Andrea Tosatto <andrea.tosy@gmail.com>
 
 Exec { 
 	path => ['/usr/local/bin/:/bin/:/usr/bin/'],
 }
 
-### Gestione dell'utente 
-user { 'vagrant':
-	ensure	=> present,
-	groups	=> ['nginx'],
-	require	=> Package['nginx'],
-	notify  => [Service["nginx"], Service["php-fpm"]], 
+### Users
+user { 
+    'vagrant':
+        ensure	=> present,
+        groups	=> ['nginx'],
+        require	=> Package['nginx'],
+        notify  => [Service["nginx"], Service["php-fpm"]]; 
+    
+    'nginx':
+        ensure	=> present,
+        groups	=> ['vagrant'],
+        require	=> Package['nginx'],
+        notify  => [Service["nginx"], Service["php-fpm"]];
 }
 
-user { 'nginx':
-	ensure	=> present,
-	groups	=> ['vagrant'],
-	require	=> Package['nginx'],
-	notify  => [Service["nginx"], Service["php-fpm"]], 
+
+### Directories
+file { 
+    "/home/vagrant":
+        ensure	=> "directory",
+        mode	=> 755;
+    
+    "/home/vagrant/tmp":
+        ensure	=> "directory",
+        mode	=> 777,
+        require => File["/home/vagrant"];
+
+    "/home/vagrant/logs":
+        ensure	=> "directory",
+        mode	=> 700,
+        require => File["/home/vagrant"];
 }
 
-file { "/home/vagrant/tmp":
-    ensure	=> "directory",
-    mode	=> 777,
-}
 
-file { "/home/vagrant/logs":
-    ensure	=> "directory",
-    mode	=> 700,
-}
 
-file { "/home/vagrant":
-    ensure	=> "directory",
-    mode	=> 755,
-}
-
-### YUM e repository
+### Setting up the yum repo and packages
 class { 'yum':
 	 extrarepo => ['nginx', 'remi', 'remi-test', 'epel'],	 
 }
 
+### Nginx
 package { "nginx":
 	require	=> Class['yum::repo::nginx'],
-}
-
-package {"gcc-c++":
-	ensure	=> "installed",
 }
 
 service { "nginx":
@@ -118,38 +121,42 @@ file { '/etc/php.ini':
 	notify  => Service["php-fpm"], 
 }
 
-### Network File Sistem
+### NFS
 package {'nfs-utils':
 	ensure  => latest,
 }
 
-### Pacchetti utili
-package {['nano', 'vim-enhanced', 'yum-utils', 'mlocate', 'git', 'curl', 'subversion']:
-	ensure => latest, 
+### GCC
+package {"gcc-c++":
+	ensure	=> "installed",
 }
 
-### Java (utilizzato da assetic)
+### Java
 package {'java-1.7.0-openjdk':
 	ensure	=> latest,
 	require	=> Class['yum'],
 }
 
-### Installazione di composer.phar nella cartella /bin
+### Others Packages
+package {['nano', 'vim-enhanced', 'yum-utils', 'mlocate', 'git', 'curl', 'subversion']:
+	ensure => latest, 
+}
+
+### Install of composer.phar in /bin
 exec { "install_composer":
     command => "curl -s https://getcomposer.org/installer | php -- --install-dir=/bin",
     require => [Package['curl'], Package['php']],
     creates => "/bin/composer.phar",
 }
 
-### Installazione di phpUnit nella cartella /usr/bin
+### Install of phpunit.phar in /usr/bin
 exec { "install_phpUnit":
     command => "wget --output-document=/usr/bin/phpunit.phar http://pear.phpunit.de/get/phpunit.phar && chmod +x /usr/bin/phpunit.phar",
     require => [Package['php'], Package['php-pear']],
     creates => "/usr/bin/phpunit.phar",
 }
 
-
-### Messaggio di benvenuto
+### Welcome messages
 host {'self':
 	ensure => present,
 	name => $fqdn,
@@ -163,30 +170,30 @@ file {'motd':
 	content => "\n*** Tekarea development OS ***\n\nNome macchina: ${hostname}\nSistema operativo: ${operatingsystem}\nDominio: ${domain}\n\n\n",
 }
 
-### Selinux
-	case $operatingsystem {
-		centos: {
-            package {['bind-utils']: 
-                ensure => installed,
-            }
-            file { "/etc/selinux/config":
-                ensure	=> file,
-                source	=> 'puppet:///modules/tekarea/selinux.cfg',
-                owner => root,
-                group => root,
-                notify => Exec["disable_selinux"], 
-            }
-      		
-            exec { 
-                "disable_selinux":
-    			command		=> "setenforce 0",
-    			refreshonly	=> true,
-    			path		=> "/usr/sbin";
-    			
-    			"disable_iptables":
-    			command     => "sudo iptables --flush",
-    			refreshonly	=> true,
-    			path		=> "/sbin";
-			}
-		}
-	}
+### Security Config
+case $operatingsystem {
+    centos: {
+        
+        package {['bind-utils']: 
+            ensure => installed,
+        }
+        
+        file { "/etc/selinux/config":
+            ensure	=> file,
+            source	=> 'puppet:///modules/tekarea/selinux.cfg',
+            owner => root,
+            group => root,
+            notify => Exec["disable_selinux"], 
+        }
+        
+        exec { 
+            "disable_selinux":
+            command		=> "setenforce 0",
+            refreshonly	=> true,
+            path		=> "/usr/sbin";
+            
+            "disable_iptables":
+            command     => "sudo iptables --flush";
+        }
+    }
+}
