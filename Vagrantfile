@@ -24,7 +24,7 @@ Vagrant.configure("2") do |config|
         project.vm.network :private_network, ip: "33.33.33.20"
         
         # VM hostname aliases | Require vagrant-hostsupdater (https://github.com/cogitatio/vagrant-hostsupdater)
-        project.hostsupdater.aliases = ["pma.dev", "litobite.com.dev"]
+        project.hostsupdater.aliases = ["pma.dev", "tekarea.dev"]
         
         ### Pass installation procedure over to Puppet (see `manifests/project.pp`)
         project.vm.provision :puppet do |puppet|
