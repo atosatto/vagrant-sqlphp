@@ -13,11 +13,12 @@ Install the vagrant-hostsupdater plugin with
 
 Then, clone this project with:
 
-	git clone 
+	git clone https://asosso@bitbucket.org/asosso/vagrant-web.git
 
 And finally init the submodule needed for the provisioning of all the VM configurations.
 
 	git submodule init
+
 	git submodule update
 	
 
@@ -57,8 +58,3 @@ Contributions are welcome.
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
-
-
-
-## Accesso a phpMyAdmin ##
-* [http://pma.dev/](http://pma.dev/ "pma.dev")
