@@ -69,7 +69,7 @@ class { "mysql": }
 
 ### phpMyAdmin
 package {'phpMyAdmin': 
-	ensure  => latest,
+	ensure  => installed,
 	require	=> Class['yum::repo::remi'],
 }
 
@@ -90,12 +90,12 @@ file { '/etc/phpMyAdmin/config.inc.php':
 
 ### PHP-FPM
 package {'php-fpm':
-	ensure	=> latest, 
+	ensure	=> installed, 
 	require	=> Class['yum::repo::remi'],
 }
 
 package { ["php-common", "php", "php-pecl-apc", "php-cli", "php-pear", "php-mysqlnd", "php-pdo", "php-gd", "php-mbstring", "php-xml", "php-imap", "php-mcrypt", "mcrypt", "php-intl", "php-devel", "php-soap"]: 
-	ensure => latest,
+	ensure => installed,
 	require	=> [Package['php-fpm'], Class['yum::repo::epel']],
 }
 
@@ -123,7 +123,7 @@ file { '/etc/php.ini':
 
 ### NFS
 package {'nfs-utils':
-	ensure  => latest,
+	ensure  => installed,
 }
 
 ### GCC
@@ -133,13 +133,13 @@ package {"gcc-c++":
 
 ### Java
 package {'java-1.7.0-openjdk':
-	ensure	=> latest,
+	ensure	=> installed,
 	require	=> Class['yum'],
 }
 
 ### Others Packages
 package {['nano', 'vim-enhanced', 'yum-utils', 'mlocate', 'git', 'curl', 'subversion']:
-	ensure => latest, 
+	ensure => installed, 
 }
 
 ### Install of composer.phar in /bin
