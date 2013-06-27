@@ -22,7 +22,7 @@ Se vuoi forzare l'aggiornamento di ciascun submodulo, anche se non è tracciato 
 #### Linux / MacOS X (Automatico) #### 
 Installare vagrant hostmaster con il comando
 
-	vagrant gem install vagrant-hostmaster
+	vagrant plugin install vagrant-hostsupdater
 
 Sostituire il file *Vagrantfile* con *Vagrantfile.LinuxHost*
 
