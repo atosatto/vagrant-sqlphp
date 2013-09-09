@@ -4,8 +4,8 @@ Vagrant.require_plugin('vagrant-hostsupdater')
 
 Vagrant.configure("2") do |config|
     
-    config.vm.box = 'centos-63-64-puppet'
-    config.vm.box_url = 'http://packages.vstone.eu/vagrant-boxes/centos/6.3/centos-6.3-64bit-puppet-vbox.4.2.6-2.box'
+    config.vm.box = 'centos-64-x64-puppet'
+    config.vm.box_url = 'http://puppet-vagrant-boxes.puppetlabs.com/centos-64-x64-vbox4210.box'
     
     ### VM Specs customization
     # config.vm.customize ["modifyvm", :id, "--memory", 2048, "--cpus", 2]
