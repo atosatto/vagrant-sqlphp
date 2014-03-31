@@ -1,6 +1,7 @@
 # Author: Andrea Tosatto <andrea.tosy@gmail.com>
 
-Vagrant.require_plugin('vagrant-hostsupdater')
+### Require plugins
+require 'vagrant-hostsupdater'
 
 Vagrant.configure("2") do |config|
     
@@ -8,29 +9,29 @@ Vagrant.configure("2") do |config|
     config.vm.box_url = 'http://puppet-vagrant-boxes.puppetlabs.com/centos-64-x64-vbox4210.box'
     
     ### VM Specs customization
-    # config.vm.customize ["modifyvm", :id, "--memory", 2048, "--cpus", 2]
-
-    ### NFS shared folder | Require nfs-utils  
-    config.vm.synced_folder "data", "/home/vagrant/data", :nfs => true, :extra => 'dmode=777,fmode=777'
+    config.vm.provider :virtualbox do |vb|
+        vb.name = "Vagrant MyPHP"
+        vb.customize ["modifyvm", :id, "--memory", "2048", "--cpus", 2]
+    end
     
-	### Needed by slow Virtualbox installations
-	# config.ssh.max_tries = 50
- 	# config.ssh.timeout   = 300
-	
-	### Puppet configuration
+    ### NFS shared folder | Require nfs-utils  
+    config.vm.synced_folder "workspace", "/home/vagrant/workspace", :nfs => true
+
+    ### Puppet configuration
     config.vm.define :vagrant_web do |project|
         
-        project.vm.hostname = "centos.tekarea.dev"
-        project.vm.network :private_network, ip: "33.33.33.20"
+        project.vm.hostname = "myphp.vagrant.dev"
+        project.vm.network :private_network, ip: "33.33.33.10"
         
         # VM hostname aliases | Require vagrant-hostsupdater (https://github.com/cogitatio/vagrant-hostsupdater)
-        project.hostsupdater.aliases = ["pma.dev", "tekarea.dev"]
+        # project.hostsupdater.aliases = ["pma.dev", "deal.traffico2.dev", "kiosk.traffico2.dev"]
+        project.hostsupdater.aliases = ["pma.dev", "booking.openhouseroma.dev"]
         
-        ### Pass installation procedure over to Puppet (see `manifests/project.pp`)
+        ### Pass installation procedure over to Puppet (see `manifests/vagrant_myphp.pp`)
         project.vm.provision :puppet do |puppet|
             puppet.manifests_path = "manifests"
             puppet.module_path = "puppet-modules"
-            puppet.manifest_file = "vagrant_web.pp"
+            puppet.manifest_file = "vagrant_myphp.pp"
             puppet.options = [
                 '--verbose',
             ]
