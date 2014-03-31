@@ -200,7 +200,7 @@ case $operatingsystem {
         
         file { "/etc/selinux/config":
             ensure	=> file,
-            source	=> 'puppet:///modules/tekarea/selinux.cfg',
+            source	=> 'puppet:///modules/config-files/selinux.cfg',
             owner => root,
             group => root,
             notify => Exec["disable_selinux"], 
