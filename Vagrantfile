@@ -18,7 +18,7 @@ Vagrant.configure("2") do |config|
     config.vm.synced_folder "workspace", "/home/vagrant/workspace", :nfs => true
 
     ### Puppet configuration
-    config.vm.define :vagrant_web do |project|
+    config.vm.define :vagrant_myphp do |project|
         
         project.vm.hostname = "myphp.vagrant.dev"
         project.vm.network :private_network, ip: "33.33.33.10"
