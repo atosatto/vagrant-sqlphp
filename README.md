@@ -1,4 +1,4 @@
-vagrant-myphp
+vagrant-sqlphp
 ===========
 
 Vagrant VirtualMachine providing a Centos 6.3 + Nginx + MySQL + PHP webapp development stack.
@@ -14,7 +14,7 @@ Install the vagrant-hostsupdater plugin with
 
 Then, clone this project with:
 
-	git clone https://github.com/hilbert-/vagrant-myphp.git
+	git clone https://github.com/hilbert-/vagrant-sqlphp.git
 
 And finally init the submodule needed for the provisioning of all the VM configurations.
 
@@ -35,7 +35,7 @@ If you see an error similar to this one
 	The following SSH command responded with a non-zero exit status.
 	Vagrant assumes that this means the command failed!
 
-	mount -o vers=3 33.33.33.1:'/Users/andrea/Documents/Sviluppo/vagrant-vms/vagrant-myphp/workspace' /home/vagrant/workspace
+	mount -o vers=3 33.33.33.1:'/Users/andrea/Documents/Sviluppo/vagrant-vms/vagrant-sqlphp/workspace' /home/vagrant/workspace
 	
 you have to execute
 	
