@@ -13,6 +13,9 @@ Thumbs.db
 
 ## IntelliJIdea
 .idea
+.librarian/
 
 ## vagrant-myphp
 workspace/*
+.tmp/
+modules/

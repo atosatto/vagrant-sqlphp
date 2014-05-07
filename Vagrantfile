@@ -25,12 +25,12 @@ Vagrant.configure("2") do |config|
         
         # VM hostname aliases | Require vagrant-hostsupdater (https://github.com/cogitatio/vagrant-hostsupdater)
         # project.hostsupdater.aliases = ["pma.dev", "deal.traffico2.dev", "kiosk.traffico2.dev"]
-        project.hostsupdater.aliases = ["pma.dev", "booking.openhouseroma.dev"]
+        project.hostsupdater.aliases = ["pma.dev", "wp-instagramish.dev", "booking.openhouseroma.dev"]
         
         ### Pass installation procedure over to Puppet (see `manifests/vagrant_sqlphp.pp`)
         project.vm.provision :puppet do |puppet|
             puppet.manifests_path = "manifests"
-            puppet.module_path = "puppet-modules"
+            puppet.module_path = "modules"
             puppet.manifest_file = "vagrant_sqlphp.pp"
             puppet.options = [
                 '--verbose',
