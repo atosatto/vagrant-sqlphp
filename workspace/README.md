@@ -1,6 +1,4 @@
-# Cartella data/ #
-Questa cartella &egrave; condivisa all'interno della macchina virtuale su vagrant
+# Workspace folder
 
-> Può essere usata per inserire i file dei progetti da condividere con la vm
-
-Generalmente viene montata in /home/vagrant/data
+The whole content of this directory is shared with the VM and 
+mounted in `/home/vagrant/workspace`

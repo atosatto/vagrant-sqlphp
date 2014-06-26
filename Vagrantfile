@@ -24,8 +24,7 @@ Vagrant.configure("2") do |config|
         project.vm.network :private_network, ip: "33.33.33.10"
         
         # VM hostname aliases | Require vagrant-hostsupdater (https://github.com/cogitatio/vagrant-hostsupdater)
-        # project.hostsupdater.aliases = ["pma.dev", "deal.traffico2.dev", "kiosk.traffico2.dev"]
-        project.hostsupdater.aliases = ["pma.dev", "wp-instagramish.dev", "booking.openhouseroma.dev"]
+        project.hostsupdater.aliases = ["pma.dev", "tweet4score.dev"]
         
         ### Pass installation procedure over to Puppet (see `manifests/vagrant_sqlphp.pp`)
         project.vm.provision :puppet do |puppet|

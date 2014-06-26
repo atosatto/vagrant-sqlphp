@@ -1,7 +1,7 @@
 vagrant-sqlphp
 ===========
 
-Vagrant VirtualMachine providing a Centos 6.3 + Nginx + MySQL + PHP webapp development stack.
+Vagrant VirtualMachine providing a Centos 6.5 + Nginx + MySQL + PHP webapp development stack.
 
 Installation
 ------------
@@ -12,11 +12,16 @@ Install the vagrant-hostsupdater plugin with
 
 	vagrant plugin install vagrant-hostsupdater
 
+Optionally, install the vagrant-vbguest plugin executing
+
+	vagrant plugin install vagrant-vbguest
+
 Then, clone this project with:
 
 	git clone https://github.com/hilbert-/vagrant-sqlphp.git
 
-And finally init the submodule needed for the provisioning of all the VM configurations.
+And finally init the submodule needed for the prov
+isioning of all the VM configurations.
 
 	git submodule init
 
@@ -45,7 +50,8 @@ you have to execute
 since it is caused by the fact that nfs is not installed on the virtual machine.
 This will be installed during the provisioning.
 
-To share folders or files with the VM you have simply to put them into the `<vagrant-web-path>/workspace`. In fact this directory is mounted via NFS on the `/home/vagrant/workspace` directory of the VM.
+To share folders or files with the VM you have simply to put them into the `<vagrant-web-path>/workspace`. 
+This directory is mounted via NFS on the `/home/vagrant/workspace` directory of the VM.
 
 Contribute
 ----------
