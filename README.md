@@ -1,10 +1,8 @@
-vagrant-sqlphp
-===========
+# vagrant-sqlphp
 
 Vagrant VirtualMachine providing a Centos 6.5 + Nginx + MySQL + PHP webapp development stack.
 
-Installation
-------------
+## Installation
 
 irst of all be sure to have installed on your host machine the latest versions of [Virtualbox](https://www.virtualbox.org/) and [Vagrant](http://www.vagrantup.com/).
 
@@ -27,8 +25,7 @@ isioning of all the VM configurations.
 
 	git submodule update
 
-Usage
------
+## Usage
 
 You can startup the VM with 
 	
@@ -50,11 +47,11 @@ you have to execute
 since it is caused by the fact that nfs is not installed on the virtual machine.
 This will be installed during the provisioning.
 
-To share folders or files with the VM you have simply to put them into the `<vagrant-web-path>/workspace`. 
+To share folders or files with the VM you have simply to put them into the `<vagrant-sqlphp-path>/workspace`. 
 This directory is mounted via NFS on the `/home/vagrant/workspace` directory of the VM.
 
-Contribute
-----------
+## Contribute
+
 Contributions are welcome.
 
 1. Fork it

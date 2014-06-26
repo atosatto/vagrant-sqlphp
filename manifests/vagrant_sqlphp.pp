@@ -64,7 +64,9 @@ file { '/etc/nginx/nginx.conf':
 }
 
 ### Mysql
-class { 'mysql::server': }
+class { 'mysql::server': 
+	require => Class['yum::repo::remi']
+}
 
 ### phpMyAdmin
 package { 'phpMyAdmin':
