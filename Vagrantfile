@@ -14,7 +14,7 @@ Vagrant.configure("2") do |config|
   end
 
   ### NFS shared folder | Require nfs-utils
-  config.vm.synced_folder "workspace", "/home/vagrant/workspace", :nfs => true, mount_options: ['rw', 'vers=3', 'tcp', 'fsc' ,'actimeo=2
+  config.vm.synced_folder "workspace", "/home/vagrant/workspace", :nfs => true
 
   ### Puppet configuration
   config.vm.define :vagrant_sqlphp do |project|
