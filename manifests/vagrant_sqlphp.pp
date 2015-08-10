@@ -65,7 +65,8 @@ file { '/etc/nginx/nginx.conf':
 
 ### Mysql
 class { 'mysql::server':
-  require => Class['yum::repo::remi']
+  root_password => 'root',
+  require       => Class['yum::repo::remi']
 }
 
 ### phpMyAdmin
@@ -156,6 +157,12 @@ package { 'nfs-utils':
 package { ['nano', 'vim-enhanced', 'yum-utils',
 'mlocate', 'git', 'curl', 'subversion']:
   ensure => latest,
+}
+
+### Disable firewallD
+service { "firewalld":
+  ensure => "stopped",
+  enable => "false"
 }
 
 ### Install of composer.phar in /bin

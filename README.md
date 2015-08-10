@@ -1,7 +1,7 @@
 vagrant-sqlphp
 ===========
 
-Vagrant VirtualMachine providing a Centos 6.5 + Nginx + MySQL + PHP webapp development stack.
+Vagrant VirtualMachine providing a Centos 7 + Nginx + MariaDB + PHP webapp development stack.
 
 Installation
 ------------
@@ -34,6 +34,9 @@ You can startup the VM with
 
 To share folders or files with the VM, put them into the `<vagrant-mongophp-dir>/workspace`.
 The directory is mounted via NFS into the `/home/vagrant/workspace` directory of the VM.
+
+You can access to the preinstalled PhpMyAdmin from http://pma.dev.
+The default MariaDB credentials are `root:root`.
 
 Contribute
 ----------
