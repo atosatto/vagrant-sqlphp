@@ -82,8 +82,7 @@ file { '/etc/nginx/conf.d/pma.conf':
   notify  => Service['nginx'],
 }
 
-
-file { '/etc/phpMyAdmin/config.inc.php':
+file { '/etc/phpMyAdmin/':
   ensure  => directory,
   group   => 'vagrant',
 }

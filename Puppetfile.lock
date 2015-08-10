@@ -1,16 +1,16 @@
 FORGE
   remote: https://forgeapi.puppetlabs.com
   specs:
-    example42-puppi (2.1.10)
-    example42-yum (2.1.17)
-      example42-puppi (> 2.0.0)
+    example42-puppi (2.1.12)
+    example42-yum (2.1.18)
+      example42-puppi (>= 2.0.0)
     nanliu-staging (1.0.3)
-    puppetlabs-mysql (3.3.0)
+    puppetlabs-mysql (3.5.0)
       nanliu-staging (~> 1.0)
       puppetlabs-stdlib (< 5.0.0, >= 3.2.0)
     puppetlabs-nginx (99.99.99)
       puppetlabs-stdlib (>= 0.1.6)
-    puppetlabs-stdlib (4.5.1)
+    puppetlabs-stdlib (4.7.0)
 
 DEPENDENCIES
   example42-yum (>= 0)

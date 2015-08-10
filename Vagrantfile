@@ -6,6 +6,7 @@ require 'vagrant-hostsupdater'
 Vagrant.configure("2") do |config|
 
   config.vm.box = 'puppetlabs/centos-7.0-64-puppet'
+  config.vm.box_version = '1.0.1'
 
   ### VM Specs customization
   config.vm.provider :virtualbox do |vb|
@@ -23,9 +24,9 @@ Vagrant.configure("2") do |config|
     project.vm.network :private_network, ip: "33.33.33.10"
 
     # VM hostname aliases | Require vagrant-hostsupdater (https://github.com/cogitatio/vagrant-hostsupdater)
-    project.hostsupdater.aliases = ["pma.dev", "corsodijoomla.dev"]
+    project.hostsupdater.aliases = ["pma.dev"]
 
-    ### Install librarian-puppet
+    ### Install librarian-puppet and the Puppet dependencies
     project.vm.provision :shell do |shell|
       shell.inline = "sudo gem install librarian-puppet; cd /vagrant; /usr/local/bin/librarian-puppet install"
     end
